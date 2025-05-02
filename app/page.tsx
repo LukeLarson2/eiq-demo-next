@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ShoppingBag, ArrowRight } from 'lucide-react';
-import FeaturedProducts from '@/components/featured-products';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, ArrowRight } from "lucide-react";
+import FeaturedProducts from "@/components/featured-products";
 
 export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
+      <section className="w-full place-items-center py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
@@ -15,7 +15,8 @@ export default function Home() {
                 Welcome to TechTrove
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                Premium tech products for your everyday needs. Free shipping on orders over $50.
+                Premium tech products for your everyday needs. Free shipping on
+                orders over $50.
               </p>
             </div>
             <div className="space-x-4">
@@ -31,7 +32,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="w-full py-12 md:py-24 lg:py-32">
+      <section className="w-full place-items-center py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -47,7 +48,7 @@ export default function Home() {
           <div className="flex justify-center mt-8">
             <Link href="/products">
               <Button variant="outline" className="group">
-                View All Products 
+                View All Products
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -56,7 +57,7 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
+      <section className="w-full place-items-center py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -70,7 +71,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
             {["Laptops", "Smartphones", "Accessories"].map((category) => (
-              <div 
+              <div
                 key={category}
                 className="relative group overflow-hidden rounded-lg shadow-md transition-all hover:shadow-xl"
               >

@@ -1,17 +1,17 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { CartProvider } from '@/lib/cart-context';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
-import { Toaster } from '@/components/ui/toaster';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { CartProvider } from "@/lib/cart-context";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'TechTrove | Premium Tech Products',
-  description: 'Shop the latest in premium tech products and accessories',
+  title: "TechTrove | Premium Tech Products",
+  description: "Shop the latest in premium tech products and accessories",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <CartProvider>
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen w-screen flex flex-col">
               <Navbar />
               <main className="flex-grow">{children}</main>
               <Footer />
