@@ -23,7 +23,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useCart } from "@/lib/cart-context";
-import { ExemptionIqClient } from "@/vendor/exemption-iq/dist";
+import { ExemptionIqClient } from "exemption-iq";
 
 export default function CartPage() {
   const router = useRouter();

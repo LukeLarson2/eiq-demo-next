@@ -34,7 +34,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CustomerInfo } from "@/lib/types";
 import { exemptions } from "@/lib/exemption-data";
-import { ExemptionIqCustomerClient } from "@/vendor/exemption-iq/dist";
+import { ExemptionIqCustomerClient } from "exemption-iq";
 
 export default function AccountPage() {
   // Using the customer info model provided in the requirements
