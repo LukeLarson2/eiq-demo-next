@@ -2,6 +2,18 @@ import { NextRequest } from "next/server";
 // templates/next/certificate.template.ts
 import { getAvalaraCredentials } from "@/vendor/exemption-iq/dist/server/helpers/getAvalaraCredentials";
 
+export function readEnv(name: string): string | undefined {
+  if (typeof process !== "undefined" && process.env?.[name]) {
+    return process.env[name];
+  }
+
+  if (typeof import.meta !== "undefined" && (import.meta as any).env?.[name]) {
+    return (import.meta as any).env[name];
+  }
+
+  return undefined;
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { customerCode, customerInfo } = body;
@@ -25,9 +37,7 @@ export async function POST(req: NextRequest) {
     ).toString("base64");
 
     const baseUrl =
-      typeof process !== "undefined"
-        ? process.env.AVATAX_API_BASE
-        : "https://sandbox-rest.avatax.com/api/v2";
+      readEnv("AVATAX_API_BASE") || "https://sandbox-rest.avatax.com/api/v2";
 
     // Try to fetch the customer first
     const getRes = await fetch(

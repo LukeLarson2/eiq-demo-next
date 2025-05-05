@@ -3,6 +3,18 @@ import { getAvalaraCredentials } from "@/vendor/exemption-iq/dist/server/helpers
 
 import { NextRequest, NextResponse } from "next/server";
 
+export function readEnv(name: string): string | undefined {
+  if (typeof process !== "undefined" && process.env?.[name]) {
+    return process.env[name];
+  }
+
+  if (typeof import.meta !== "undefined" && (import.meta as any).env?.[name]) {
+    return (import.meta as any).env[name];
+  }
+
+  return undefined;
+}
+
 export async function GET(
   req: NextRequest,
   context: { params: { id: string } }
@@ -27,9 +39,7 @@ export async function GET(
     ).toString("base64");
 
     const baseUrl =
-      typeof process !== "undefined"
-        ? process.env.AVATAX_API_BASE
-        : "https://sandbox-rest.avatax.com/api/v2";
+      readEnv("AVATAX_API_BASE") || "https://sandbox-rest.avatax.com/api/v2";
     const url = `${baseUrl}/companies/${credentials.companyId}/certificates/${certificateId}/attachment`;
 
     const response = await fetch(url, {
