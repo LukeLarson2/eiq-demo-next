@@ -22,22 +22,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { CustomerInfo } from "@/lib/types";
-import { exemptions } from "@/lib/exemption-data";
+
+// ExemptionIQ Customer Client Component import statement
 import { ExemptionIqCustomerClient } from "exemption-iq";
 
 export default function AccountPage() {
-  // Using the customer info model provided in the requirements
+  // Example customer data model - Customer data should not be hard coded
   const customerInfo: CustomerInfo = {
     name: "Acme Corporation",
     emailAddress: "purchasing@acmecorp.example",
@@ -54,11 +45,14 @@ export default function AccountPage() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [exemptionComplete, setExemptionComplete] = useState(false);
+
+  // Example onComplete callback function
   const handleExemptionComplete = (status: boolean) => {
     setExemptionComplete(status);
     return true;
   };
 
+  // Example button styles to match page themes
   const buttonStyles = JSON.stringify({
     padding: "0.75rem 1.5rem",
     borderRadius: "6px",
@@ -299,6 +293,7 @@ export default function AccountPage() {
             <TabsContent value="exemptions">
               <Card>
                 <div className="p-4">
+                  {/* ExemptionIQ Customer Client Component integration example */}
                   <ExemptionIqCustomerClient
                     customerCode="ACME001"
                     customerInfo={customerInfo}

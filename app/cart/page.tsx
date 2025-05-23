@@ -23,16 +23,21 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useCart } from "@/lib/cart-context";
+import { CustomerInfo } from "@/lib/types";
+
+// ExemptionIQ Client Component import statement
 import { ExemptionIqClient } from "exemption-iq";
 
 export default function CartPage() {
   const router = useRouter();
+  // Example cart store
   const { cart, updateQuantity, removeFromCart, clearCart, getCartTotal } =
     useCart();
   const [promoCode, setPromoCode] = useState("");
   const [exemptionComplete, setExemptionComplete] = useState(false);
 
-  const customerInfo = {
+  // Example customer data model - Customer data should not be hard coded
+  const customerInfo: CustomerInfo = {
     name: "Acme Corporation",
     emailAddress: "purchasing@acmecorp.example",
     addressLine1: "123 Business Ave",
@@ -43,22 +48,25 @@ export default function CartPage() {
     region: "FL",
   };
 
+  // Example onComplete callback function
   const handleExemptionComplete = (status: boolean) => {
     setExemptionComplete(status);
     return true;
   };
 
+  // In a real application, this would navigate to a checkout page
+  // or initiate the checkout process
   const handleCheckout = () => {
-    // In a real application, this would navigate to a checkout page
-    // or initiate the checkout process
     router.push("/checkout");
   };
 
+  // Mocked subtotal calucations with tax
   const subtotal = getCartTotal();
   const shipping = subtotal > 50 ? 0 : 9.99;
   const tax = exemptionComplete ? 0 : subtotal * 0.07; // Example tax rate of 7%
   const total = subtotal + shipping + tax;
 
+  // Example button styles to match page themes
   const buttonStyles = JSON.stringify({
     padding: "0.75rem 1.5rem",
     borderRadius: "6px",
@@ -69,7 +77,7 @@ export default function CartPage() {
     alignItems: "center",
     justifyContent: "center",
     border: "none",
-    backgroundColor: "#1f2937", // Tailwind's gray-800
+    backgroundColor: "#1f2937",
     color: "#ffffff",
     cursor: "pointer",
     width: "100%",
@@ -280,9 +288,9 @@ export default function CartPage() {
                   />
                   <Button variant="outline">Apply</Button>
                 </div>
-
+                {/* ExemptionIQ Client Component integration example */}
                 <ExemptionIqClient
-                  customerCode="ACME001"
+                  customerCode="ACME001" // Custom customer code prop
                   customerInfo={customerInfo}
                   state="Florida"
                   primaryColor="#2966B1"
@@ -292,7 +300,6 @@ export default function CartPage() {
                   manualValidation={false}
                   showDownload={true}
                 />
-
                 <Button className="w-full" onClick={handleCheckout}>
                   Checkout
                 </Button>
