@@ -26,7 +26,8 @@ import { useCart } from "@/lib/cart-context";
 import { CustomerInfo } from "@/lib/types";
 
 // ExemptionIQ Client Component import statement
-import { ExemptionIqClient } from "exemption-iq";
+
+import { ExemptionIqClient } from "@/vendor/exemption-iq/dist/components/ExemptionIqClient";
 
 export default function CartPage() {
   const router = useRouter();

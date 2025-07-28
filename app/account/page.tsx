@@ -25,7 +25,7 @@ import {
 import { CustomerInfo } from "@/lib/types";
 
 // ExemptionIQ Customer Client Component import statement
-import { ExemptionIqCustomerClient } from "exemption-iq";
+import { ExemptionIqCustomerClient } from "../../vendor/exemption-iq/dist";
 
 export default function AccountPage() {
   // Example customer data model - Customer data should not be hard coded

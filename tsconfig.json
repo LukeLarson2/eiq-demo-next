@@ -26,9 +26,7 @@
       "@/*": [
         "./*"
       ],
-      "exemption-iq": [
-        "./vendor/exemption-iq/dist/index"
-      ]
+      
     }
   },
   "include": [
