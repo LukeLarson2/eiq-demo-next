@@ -34,4 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-vendor/
+# vendor exemption-iq files
+!vendor/
+/vendor/exemption-iq/node_modules/

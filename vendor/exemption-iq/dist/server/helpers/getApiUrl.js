@@ -1,0 +1,1 @@
+function n(i,t){const e=t.split("/").filter(Boolean);switch(i){case"remix":return`/exemption-iq/${e.join("/")}`;case"next":return`/api/exemption-iq/${e.join("/")}`;case"astro":return`/api/exemption-iq/${e.join("-")}`;case"express":case"generic":default:return`/api/exemption-iq/${e.join("/")}`}}export{n as getApiUrl};
