@@ -30,14 +30,14 @@ import { ExemptionIqCustomerClient } from "exemption-iq";
 export default function AccountPage() {
   // Example customer data model - Customer data should not be hard coded
   const customerInfo: CustomerInfo = {
-    name: "Acme Corporation",
-    emailAddress: "purchasing@acmecorp.example",
-    addressLine1: "123 Business Ave",
-    phoneNumber: "555-123-4567",
-    city: "Orlando",
+    name: "Phillips-Kim",
+    emailAddress: "grant87@arnold.com",
+    addressLine1: "65029 Peterson Skyway Suite 666",
+    phoneNumber: "205-118-7100x964",
+    city: "New Bethville",
     country: "USA",
-    postalCode: "32801",
-    region: "FL",
+    postalCode: "16005",
+    region: "NV",
   };
 
   const [editedCustomerInfo, setEditedCustomerInfo] = useState<CustomerInfo>({
@@ -80,7 +80,6 @@ export default function AccountPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real application, this would update the customer info in the database
-    console.log("Updated customer info:", editedCustomerInfo);
     setIsEditing(false);
   };
 
@@ -295,15 +294,16 @@ export default function AccountPage() {
                 <div className="p-4">
                   {/* ExemptionIQ Customer Client Component integration example */}
                   <ExemptionIqCustomerClient
-                    customerCode="ACME001"
+                    customerCode="000001"
                     customerInfo={customerInfo}
-                    state="Florida"
+                    state="Navada"
                     primaryColor="#2966B1"
                     onComplete={handleExemptionComplete}
                     framework="next"
                     buttonStyles={buttonStyles}
                     manualValidation={false}
                     showDownload={true}
+                    environment="production"
                   />
                 </div>
               </Card>

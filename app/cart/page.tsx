@@ -38,14 +38,14 @@ export default function CartPage() {
 
   // Example customer data model - Customer data should not be hard coded
   const customerInfo: CustomerInfo = {
-    name: "Acme Corporation",
-    emailAddress: "purchasing@acmecorp.example",
-    addressLine1: "123 Business Ave",
-    phoneNumber: "555-123-4567",
-    city: "Orlando",
+    name: "Phillips-Kim",
+    emailAddress: "grant87@arnold.com",
+    addressLine1: "65029 Peterson Skyway Suite 666",
+    phoneNumber: "205-118-7100x964",
+    city: "New Bethville",
     country: "USA",
-    postalCode: "32801",
-    region: "FL",
+    postalCode: "16005",
+    region: "NV",
   };
 
   // Example onComplete callback function
@@ -290,15 +290,16 @@ export default function CartPage() {
                 </div>
                 {/* ExemptionIQ Client Component integration example */}
                 <ExemptionIqClient
-                  customerCode="ACME001" // Custom customer code prop
+                  customerCode="000001" // Custom customer code prop
                   customerInfo={customerInfo}
-                  state="Florida"
+                  state="Nevada"
                   primaryColor="#2966B1"
                   onComplete={handleExemptionComplete}
                   framework="next"
                   buttonStyles={buttonStyles}
                   manualValidation={false}
                   showDownload={true}
+                  environment="production"
                 />
                 <Button className="w-full" onClick={handleCheckout}>
                   Checkout
