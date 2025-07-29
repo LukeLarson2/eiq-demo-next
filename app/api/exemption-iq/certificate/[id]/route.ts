@@ -5,12 +5,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { id: certificateId } = context.params;
+  const certificateId = params.id;
 
   if (!certificateId) {
     return new Response("Missing certificate ID", { status: 400 });
+  }
+
+  const sessionToken = req.cookies.get("eiq_session_token")?.value;
+
+  if (!sessionToken) {
+    return new Response("Missing session token", { status: 401 });
   }
 
   function readEnv(name: string): string | undefined {
@@ -26,12 +32,6 @@ export async function GET(
     }
 
     return undefined;
-  }
-
-  const sessionToken = req.cookies.get("eiq_session_token")?.value;
-
-  if (!sessionToken) {
-    return new Response("Missing session token", { status: 401 });
   }
 
   try {
