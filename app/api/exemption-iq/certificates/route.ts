@@ -58,15 +58,18 @@ export async function POST(req: NextRequest) {
     const certs = data.activeCertificates || [];
 
     const formatted = certs.map((cert: any) => ({
-      id: String(cert.certificate.id),
-      signedDate: new Date(cert.certificate.signedDate).toLocaleDateString(),
-      expirationDate: cert.certificate.expirationDate
-        ? new Date(cert.certificate.expirationDate).toLocaleDateString()
+      id: String(cert?.certificate?.id) || String(cert.id),
+      signedDate:
+        new Date(cert?.certificate?.signedDate).toLocaleDateString() || "N/A",
+      expirationDate: cert?.certificate?.expirationDate
+        ? new Date(cert?.certificate?.expirationDate).toLocaleDateString()
         : "N/A",
       exposureZone: cert.exposureZone?.name || "Unknown",
       exemptionReason: cert?.actualTaxCode?.name || "",
-      status: cert.certificate.valid ? "valid" : "invalid",
-      pdfUrl: `/api/exemption-iq/certificate/${cert.certificate.id}`,
+      status: cert?.certificate?.valid ? "valid" : "invalid",
+      pdfUrl: `/api/exemption-iq/certificate/${
+        cert?.certificate?.id || cert.id
+      }`,
     }));
 
     return Response.json(formatted);

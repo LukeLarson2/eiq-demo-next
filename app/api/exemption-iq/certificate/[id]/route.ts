@@ -5,10 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  params: Promise<{ certificateId: string }>
 ) {
-  const { params } = context;
-  const certificateId = params.id;
+  const { certificateId } = await params;
 
   if (!certificateId) {
     return new Response("Missing certificate ID", { status: 400 });
