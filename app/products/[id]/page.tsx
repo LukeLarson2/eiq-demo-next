@@ -1,81 +1,81 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
-import { 
-  Minus, 
-  Plus, 
-  ShoppingCart, 
-  Heart, 
-  Share2, 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Minus,
+  Plus,
+  ShoppingCart,
+  Heart,
+  Share2,
   Star,
   ChevronRight,
   Truck,
   ShieldCheck,
-  RotateCcw
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { 
+  RotateCcw,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { useCart } from '@/lib/cart-context'
-import { getProductById, getProductsByCategory } from '@/lib/product-data'
-import { Product } from '@/lib/types'
+} from "@/components/ui/breadcrumb";
+import { useCart } from "@/lib/cart-context";
+import { getProductById, getProductsByCategory } from "@/lib/product-data";
+import { Product } from "@/lib/types";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
-  const router = useRouter()
-  const productId = parseInt(params.id)
-  const { addToCart } = useCart()
-  
-  const [product, setProduct] = useState<Product | null>(null)
-  const [quantity, setQuantity] = useState(1)
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
-  
+export default function ProductPage({ params }: any) {
+  const router = useRouter();
+  const productId = parseInt(params.id);
+  const { addToCart } = useCart();
+
+  const [product, setProduct] = useState<Product | null>(null);
+  const [quantity, setQuantity] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const fetchedProduct = getProductById(productId)
-    
+    const fetchedProduct = getProductById(productId);
+
     if (!fetchedProduct) {
-      router.push('/products')
-      return
+      router.push("/products");
+      return;
     }
-    
-    setProduct(fetchedProduct)
-    
+
+    setProduct(fetchedProduct);
+
     // Get related products from the same category
     const related = getProductsByCategory(fetchedProduct.category)
-      .filter(p => p.id !== fetchedProduct.id)
-      .slice(0, 4)
-    
-    setRelatedProducts(related)
-    setLoading(false)
-  }, [productId, router])
-  
+      .filter((p) => p.id !== fetchedProduct.id)
+      .slice(0, 4);
+
+    setRelatedProducts(related);
+    setLoading(false);
+  }, [productId, router]);
+
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1)
+      setQuantity(quantity - 1);
     }
-  }
-  
+  };
+
   const increaseQuantity = () => {
     if (product && quantity < product.stock) {
-      setQuantity(quantity + 1)
+      setQuantity(quantity + 1);
     }
-  }
-  
+  };
+
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product, quantity)
+      addToCart(product, quantity);
     }
-  }
-  
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -94,9 +94,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-    )
+    );
   }
-  
+
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -110,9 +110,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </Link>
         </div>
       </div>
-    )
+    );
   }
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumbs */}
@@ -131,7 +131,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <ChevronRight className="h-4 w-4" />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/products?category=${product.category}`} className="capitalize">
+            <BreadcrumbLink
+              href={`/products?category=${product.category}`}
+              className="capitalize"
+            >
               {product.category}
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -139,41 +142,46 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <ChevronRight className="h-4 w-4" />
           </BreadcrumbSeparator>
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/products/${product.id}`} className="text-muted-foreground">
+            <BreadcrumbLink
+              href={`/products/${product.id}`}
+              className="text-muted-foreground"
+            >
               {product.name}
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {/* Product Image */}
         <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
-          <Image 
-            src={product.image} 
+          <Image
+            src={product.image}
             alt={product.name}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
             priority
             className="hover:scale-105 transition-transform duration-500"
           />
         </div>
-        
+
         {/* Product Details */}
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">{product.name}</h1>
-            
+            <h1 className="text-3xl font-bold tracking-tight">
+              {product.name}
+            </h1>
+
             <div className="flex items-center mt-2 space-x-2">
               <div className="flex">
                 {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
+                  <Star
+                    key={i}
                     className={`h-5 w-5 ${
-                      i < Math.floor(product.rating) 
-                        ? 'text-yellow-400 fill-yellow-400' 
-                        : 'text-gray-300 dark:text-gray-600'
-                    }`} 
+                      i < Math.floor(product.rating)
+                        ? "text-yellow-400 fill-yellow-400"
+                        : "text-gray-300 dark:text-gray-600"
+                    }`}
                   />
                 ))}
               </div>
@@ -185,17 +193,17 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               </span>
             </div>
           </div>
-          
+
           <div className="text-2xl font-bold">${product.price.toFixed(2)}</div>
-          
+
           <p className="text-gray-700 dark:text-gray-300">
             {product.description}
           </p>
-          
+
           <div className="flex items-center space-x-4">
             <div className="flex items-center border border-gray-200 dark:border-gray-800 rounded-md">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 onClick={decreaseQuantity}
                 disabled={quantity <= 1}
@@ -203,13 +211,13 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               >
                 <Minus className="h-4 w-4" />
               </Button>
-              
+
               <div className="h-10 w-12 flex items-center justify-center border-x border-gray-200 dark:border-gray-800">
                 {quantity}
               </div>
-              
-              <Button 
-                variant="ghost" 
+
+              <Button
+                variant="ghost"
                 size="icon"
                 onClick={increaseQuantity}
                 disabled={product.stock <= quantity}
@@ -218,7 +226,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
-            
+
             <Button
               className="flex-1 gap-2"
               onClick={handleAddToCart}
@@ -227,18 +235,18 @@ export default function ProductPage({ params }: { params: { id: string } }) {
               <ShoppingCart className="h-5 w-5" />
               Add to Cart
             </Button>
-            
+
             <Button variant="outline" size="icon" className="rounded-full">
               <Heart className="h-5 w-5" />
               <span className="sr-only">Add to wishlist</span>
             </Button>
-            
+
             <Button variant="outline" size="icon" className="rounded-full">
               <Share2 className="h-5 w-5" />
               <span className="sr-only">Share</span>
             </Button>
           </div>
-          
+
           <div className="border-t border-b border-gray-200 dark:border-gray-800 py-4 space-y-3">
             <div className="flex items-center">
               <Truck className="h-5 w-5 mr-2 text-green-500" />
@@ -255,42 +263,47 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-      
+
       {/* Related Products */}
       {relatedProducts.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-2xl font-bold tracking-tight mb-6">You might also like</h2>
+          <h2 className="text-2xl font-bold tracking-tight mb-6">
+            You might also like
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map((relatedProduct) => (
-              <Card key={relatedProduct.id} className="group overflow-hidden transition-all duration-300 hover:shadow-lg">
+              <Card
+                key={relatedProduct.id}
+                className="group overflow-hidden transition-all duration-300 hover:shadow-lg"
+              >
                 <div className="relative aspect-square overflow-hidden">
                   <Link href={`/products/${relatedProduct.id}`}>
                     <div className="w-full h-64 relative">
-                      <Image 
-                        src={relatedProduct.image} 
+                      <Image
+                        src={relatedProduct.image}
                         alt={relatedProduct.name}
                         fill
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: "cover" }}
                         className="transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
                   </Link>
                 </div>
-                
+
                 <div className="p-4">
                   <Link href={`/products/${relatedProduct.id}`}>
                     <h3 className="font-semibold text-lg hover:text-primary transition-colors">
                       {relatedProduct.name}
                     </h3>
                   </Link>
-                  
+
                   <div className="flex items-center justify-between mt-2">
                     <div className="font-bold">
                       ${relatedProduct.price.toFixed(2)}
                     </div>
-                    
-                    <Button 
-                      size="sm" 
+
+                    <Button
+                      size="sm"
                       variant="ghost"
                       className="rounded-full p-0 w-8 h-8"
                       onClick={() => addToCart(relatedProduct)}
@@ -306,5 +319,5 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         </div>
       )}
     </div>
-  )
+  );
 }
