@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       exposureZone: cert.exposureZone?.name || "Unknown",
       exemptionReason: cert?.actualTaxCode?.name || "",
       status: cert.certificate.valid ? "valid" : "invalid",
-      pdfUrl: `/api/exemption-iq/certificate/${cert.id}`,
+      pdfUrl: `/api/exemption-iq/certificate/${cert.certificate.id}`,
     }));
 
     return Response.json(formatted);

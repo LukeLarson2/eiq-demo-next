@@ -296,7 +296,7 @@ export default function AccountPage() {
                   <ExemptionIqCustomerClient
                     customerCode="000001"
                     customerInfo={customerInfo}
-                    state="Navada"
+                    state="Texas"
                     primaryColor="#2966B1"
                     onComplete={handleExemptionComplete}
                     framework="next"

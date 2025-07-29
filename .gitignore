@@ -37,3 +37,5 @@ next-env.d.ts
 # vendor exemption-iq files
 !vendor/
 /vendor/exemption-iq/node_modules/
+
+vendor/
