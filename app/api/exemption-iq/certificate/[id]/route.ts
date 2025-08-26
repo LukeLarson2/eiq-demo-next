@@ -7,7 +7,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const certificateId = params.id;
+  const { id: certificateId } = params;
 
   if (!certificateId) {
     return new Response("Missing certificate ID", { status: 400 });
