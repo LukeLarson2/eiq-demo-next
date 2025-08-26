@@ -1,37 +1,33 @@
-// templates/next/certificate.template.ts
+// app/api/exemption-iq/certificate/[id]/route.ts
+
+import type { NextRequest } from "next/server";
 import { getAvalaraCredentials } from "@/vendor/exemption-iq/dist/server/helpers/getAvalaraCredentials";
 
-import { NextRequest, NextResponse } from "next/server";
+// Ensure Node.js runtime for Buffer and Node APIs
+export const runtime = "nodejs";
+
+const AVATAX_DEFAULT_BASE = "https://rest.avatax.com/api/v2";
+
+function readEnv(name: string): string | undefined {
+  if (typeof process !== "undefined" && process.env?.[name]) {
+    return process.env[name];
+  }
+  return undefined;
+}
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  ctx: RouteContext<"/api/exemption-iq/certificate/[id]">
 ) {
-  const { id: certificateId } = params;
+  const { id: certificateId } = await ctx.params;
 
   if (!certificateId) {
     return new Response("Missing certificate ID", { status: 400 });
   }
 
   const sessionToken = req.cookies.get("eiq_session_token")?.value;
-
   if (!sessionToken) {
     return new Response("Missing session token", { status: 401 });
-  }
-
-  function readEnv(name: string): string | undefined {
-    if (typeof process !== "undefined" && process.env?.[name]) {
-      return process.env[name];
-    }
-
-    if (
-      typeof import.meta !== "undefined" &&
-      (import.meta as any).env?.[name]
-    ) {
-      return (import.meta as any).env[name];
-    }
-
-    return undefined;
   }
 
   try {
@@ -41,35 +37,36 @@ export async function GET(
       `${credentials.username}:${credentials.password}`
     ).toString("base64");
 
-    const baseUrl =
-      readEnv("AVATAX_API_BASE") || "https://rest.avatax.com/api/v2";
+    const baseUrl = readEnv("AVATAX_API_BASE") || AVATAX_DEFAULT_BASE;
     const url = `${baseUrl}/companies/${credentials.companyId}/certificates/${certificateId}/attachment`;
 
-    const response = await fetch(url, {
+    const upstream = await fetch(url, {
       headers: {
         Authorization: `Basic ${basicAuth}`,
         "X-Avalara-Client": credentials.clientId,
       },
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return new Response(errorText, { status: response.status });
+    if (!upstream.ok) {
+      const errorText = await upstream.text();
+      return new Response(errorText || "Upstream error", {
+        status: upstream.status,
+      });
     }
 
-    const stream = response.body;
-    if (!stream) {
+    const body = upstream.body;
+    if (!body) {
       return new Response("Missing PDF stream", { status: 500 });
     }
 
-    return new Response(stream, {
+    return new Response(body, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": `inline; filename="certificate-${certificateId}.pdf"`,
       },
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Certificate PDF fetch error:", err);
     return new Response("Failed to fetch certificate", { status: 500 });
   }
