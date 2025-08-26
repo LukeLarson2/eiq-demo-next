@@ -1,1 +1,1 @@
-const n={};function i(e){var r,t;if(typeof process!="undefined"&&((r=process.env)!=null&&r[e]))return process.env[e];if(typeof n!="undefined"&&((t=n.env)!=null&&t[e]))return n.env[e]}export{i as readEnv};
+function n(e){if(typeof process<"u"&&process.env?.[e])return process.env[e];if(typeof import.meta<"u"&&import.meta.env?.[e])return import.meta.env[e]}export{n as readEnv};

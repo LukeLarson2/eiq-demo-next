@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: any
-): Promise<Response> {
+  { params }: { params: { id: string } }
+) {
   const certificateId = params.id;
 
   if (!certificateId) {

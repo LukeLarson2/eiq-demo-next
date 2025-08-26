@@ -45,7 +45,7 @@ interface ExemptionIqTableProps {
   successColor?: string;
   buttonStyles?: string;
   sessionToken?: { token: string };
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   framework?: Framework;
   avataxBaseUrl?: string;
   environment?: "production" | "sandbox";
@@ -63,7 +63,7 @@ interface ExemptionIqGenCertModalProps {
   manualValidation?: boolean;
   onCertificateComplete?: (certId: string) => void;
   mode: "renew" | "add";
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   environment?: "production" | "sandbox";
 }
 
@@ -93,7 +93,7 @@ interface ExemptionIqProps {
   dangerColor?: string;
   successColor?: string;
   buttonStyles?: string;
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   framework?: Framework;
   avataxBaseUrl?: string;
   environment?: "production" | "sandbox";
@@ -110,7 +110,7 @@ interface AvataxCertificateClientProps {
   customerInfo: CustomerInfo;
   shouldPrefillState?: boolean;
   mode: "add" | "renew";
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   environment?: "production" | "sandbox";
 }
 
@@ -163,7 +163,7 @@ interface ExemptionIqButtonProps {
   buttonStyles?: string;
   customerCode: string;
   customerInfo: CustomerInfo;
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   persistAfterSuccess?: boolean;
   matchingCertificate: any;
   sessionToken?: { token: string };
@@ -185,7 +185,7 @@ interface AddCertificateProps {
   showDownload?: boolean;
   manualValidation?: boolean;
   certificateComplete: () => void;
-  onComplete?: (boolean) => boolean;
+  onComplete?: (value: boolean) => boolean;
   environment?: "production" | "sandbox";
 }
 
